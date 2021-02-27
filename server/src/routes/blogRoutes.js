@@ -44,7 +44,7 @@ router.post("/new-blog", (req, res) => {
     title: req.body.title,
     content: req.body.content,
     categoryId:req.body.categoryId,
-    authorId:req.session.user.id
+    // authorId:req.session.user.id
   }
   BlogModel.create(blogStructure)
     .then((data) => {

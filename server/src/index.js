@@ -28,14 +28,14 @@ app.use(
 )
 
 // Tell express that it needs to use the routers we have initialised
-app.use ('/api/blogs', blogRouter)
-app.use ('/api/users', userRouter)
-app.use('/api/categories', categoryRouter)
+app.use ('/blogs', blogRouter)
+app.use ('/users', userRouter)
+app.use('/categories', categoryRouter)
 
 
 
 // define the port and Start your server by listening for requests
-const port = 3000;
+const port = 8000;
 
 app.listen(port, () =>
   console.log(`Fruit app listening at http://localhost:${port}`)
