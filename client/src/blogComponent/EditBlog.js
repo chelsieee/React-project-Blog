@@ -21,7 +21,7 @@ export const EditBlog =(props)=>{
 
     const handleSubmit =(e)=>{
         e.preventDefault();
-        console.log('New blog:', blog)
+        console.log('Edited blog:', blog)
         props.submit(blog)
     }
 

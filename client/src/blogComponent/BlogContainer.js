@@ -37,10 +37,17 @@ const handleBlogClick =(blog)=>{
 }
 
 const handleEditBlog =(blog) =>{
-    const newList =[...blogList]
-    newList[blog.UniqueId]=blog
-    setBlogList(newList)   
-}
+console.log('handle edited blog:', blog)
+ fetch(`http://localhost:8000/blogs/new-blog/update/${blog._id}`,{
+     method:'PUT',
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body:JSON.stringify(blog)
+ }).then((res)=>{
+     console.log('PUT res:', res)
+ })
+} 
 
 const handleDelteBlog =(blog) =>{
     console.log('blog to be deleted:', blog)
@@ -55,11 +62,12 @@ useEffect(()=>{
         headers: {
             "Content-Type": "application/json",
           },
+        credentials: 'same-origin',
     }).then((res)=>{
         return res.json()
-    }).then((movieData)=>{
-        console.log('movie Data:', movieData);
-        setBlogList(movieData)
+    }).then((BlogData)=>{
+        console.log('blog Data:', BlogData);
+        setBlogList(BlogData)
     })
 },[])
 

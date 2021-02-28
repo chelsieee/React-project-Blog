@@ -7,6 +7,7 @@ const router = express.Router();
 //register user&password
 router.post('/register', (req, res) =>{
     const body= req.body;
+    console.log(body)
     const password = req.body.password;
     
     const passwordEncrypt =bcrypt.hashSync(password, 8);
@@ -18,7 +19,8 @@ router.post('/register', (req, res) =>{
 
     userModel.create(user).then(()=>{
         res.send('user registered successfully')
-    }).catch(()=>{
+    }).catch((err)=>{
+        console.log(err)
         res.status(400).send('unable to create user')
     })
 })
