@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import axios from 'axios'
 import {List} from './List';
 import {AddBlog} from './AddBlog'
 import { EditBlog } from "./EditBlog";
@@ -21,12 +22,9 @@ console.log('created blog:', blog)
  console.log(newList)
  setBlogList(newList)
 
- fetch('http://localhost:8000/blogs/new-blog',{
-    method:"POST",
-    headers: {
-        "Content-Type": "application/json",
-      },
-    body:JSON.stringify(blog)
+ axios.get('http://localhost:8000/blogs/new-blog',{
+    withCredentials: true,
+    credentials: 'include',
  }).then((res)=>{
     console.log("post response:", res);
  })
@@ -38,13 +36,12 @@ const handleBlogClick =(blog)=>{
 
 const handleEditBlog =(blog) =>{
 console.log('handle edited blog:', blog)
- fetch(`http://localhost:8000/blogs/new-blog/update/${blog._id}`,{
-     method:'PUT',
-    headers: {
-        "Content-Type": "application/json",
-    },
-    body:JSON.stringify(blog)
- }).then((res)=>{
+ axios.patch(`api/blogs/update/${blog._id}`,
+{title: blog.title, 
+content:blog.content, 
+categoryId: blog.categoryId_id},
+ {'Access-Control-Allow-Credentials':true})
+ .then((res)=>{
      console.log('PUT res:', res)
  })
 } 
@@ -57,32 +54,23 @@ const handleDelteBlog =(blog) =>{
 }
 
 useEffect(()=>{
-    fetch('http://localhost:8000/blogs/all', {
-        method:"GET",
-        headers: {
-            "Content-Type": "application/json",
-          },
-        credentials: 'same-origin',
-    }).then((res)=>{
-        return res.json()
-    }).then((BlogData)=>{
-        console.log('blog Data:', BlogData);
-        setBlogList(BlogData)
+    axios.get('/api/blogs/all', {
+        'Access-Control-Allow-Credentials':true
+        })
+        .then((res)=>{
+        console.log('blog Data:', res);
+        setBlogList(res.data)
     })
 },[])
 
 
 useEffect(()=>{
-    fetch('http://localhost:8000/categories/all', {
-        method:"GET",
-        headers: {
-            "Content-Type": "application/json",
-          },
-    }).then((res)=>{
-        return res.json()
-    }).then((categories)=>{
-        console.log('categories Data:', categories);
-        setCategories(categories)
+    axios.get('/api/categories/all', {
+        'Access-Control-Allow-Credentials':true
+    })
+    .then((res)=>{
+        console.log('categories Data:', res);
+        setCategories(res.data)
     })
 },[])
 

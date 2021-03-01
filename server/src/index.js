@@ -18,7 +18,7 @@ const app = express();
 
 //middleware
 app.use(express.json());//essential ! a method inbuilt in express to recognize the incoming Request Object as a JSON Object
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(
   session({
     secret: "random secret",
@@ -28,9 +28,9 @@ app.use(
 )
 
 // Tell express that it needs to use the routers we have initialised
-app.use ('/blogs', blogRouter)
-app.use ('/users', userRouter)
-app.use('/categories', categoryRouter)
+app.use ('/api/blogs', blogRouter)
+app.use ('/api/users', userRouter)
+app.use('/api/categories', categoryRouter)
 
 
 

@@ -5,8 +5,9 @@ import {LoginUser} from './LoginUser'
 export const FunctionalUserContainer =() =>{
 
 const handleRegisterFormSubmit =(newUser)=>{
-    fetch('http://localhost:8000/users/register',{
+    fetch('/api/users/register',{
         method:'POST',
+        credentials: 'include',
         headers: {
             "Content-Type": "application/json",
           },
@@ -15,20 +16,19 @@ const handleRegisterFormSubmit =(newUser)=>{
     // .then(response => response.text())
     .then(data => {
       console.log('status:', data.status);
-      const msg =(data.status ==200)? "successfully registered" : "unable to register"
+      const msg =(data.status ===200)? "successfully registered" : "unable to register"
       window.alert(msg)
     })
 }
 
 
 const handleLoginFormSubmit =(existingUser)=>{
-    fetch('http://localhost:8000/users/login',{
+    fetch('/api/users/login',{
         method:'POST',
         headers: {
             "Content-Type": "application/json",
           },
         body:JSON.stringify(existingUser),
-        credentials: 'same-origin',
     }).then(response => {
         console.log(response.headers)
        return response.json()
