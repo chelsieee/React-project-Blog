@@ -13,7 +13,7 @@ const handleRegisterFormSubmit =(newUser)=>{
       window.alert(status)
     }).catch((err)=>{
         console.log(err);
-        window.alert("unable to register")
+        window.alert(err.response.data)
     })
 }
 
@@ -31,7 +31,7 @@ const handleLoginFormSubmit =(existingUser)=>{
         })
     .catch((err)=>{
             console.log(err);
-            window.alert("unable to loggin")
+            window.alert(err.response.data)
         })
 }
 
