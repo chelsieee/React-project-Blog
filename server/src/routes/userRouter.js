@@ -7,7 +7,6 @@ const router = express.Router();
 //register user&password
 router.post('/register', (req, res) =>{
     const body= req.body;
-    console.log(body)
     const password = req.body.password;
     
     const passwordEncrypt =bcrypt.hashSync(password, 8);
@@ -40,7 +39,7 @@ router.post('/login', (req, res)=>{
             }
         
         }else{
-            res.status(404).send('invalid username!')
+            res.status(404).send('invalid username or password!')
             return;
 
         }

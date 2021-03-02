@@ -20,11 +20,11 @@ export const NewUser =(props) =>{
 
     return (
         <form onSubmit={handleSubmit}>
-             <h1 class="text-info text-center">New user registration</h1>
+             <h1>New user registration</h1>
             <div>
             <input type="text" laceholder="Please enter username" name="username" value={userState.username} onChange={handleChange}></input>
-            <input type="password" class="form-control" placeholder="Please enter password" name="password" value={userState.password} onChange={handleChange}></input>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <input type="password" placeholder="Please enter password" name="password" value={userState.password} onChange={handleChange}></input>
+            <button type="submit">Submit</button>
             </div>
         </form>
 
