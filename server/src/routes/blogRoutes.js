@@ -67,7 +67,7 @@ router.patch("/update/:id", (req, res) => {
       BlogModel.findByIdAndUpdate(id, update, {
         new: true,
         upsert: true,
-      }).then((data) => res.send(`${data} updated succesfully`));
+      }).then((data) => res.send(`${data.title} updated succesfully`));
     } else {
       res.status(403).send("Unauthorised author, unable to change blog!");
     }

@@ -4,8 +4,8 @@ export const List = (props) => {
   return (
     <ul>
       {props.blogs.map((el, index) => (
-        <li key={index} onClick={()=>(props.handleClick(el))} >
-          {el.title} {el.content} {el.category} <button type="button" key={index} onClick={()=>props.handleDelete(el)}>Delete</button>
+        <li key={index} >
+          {el.title} {el.authorId.username} {el.content} {el.categoryId.tag} {el.createdAt} 
         </li>
       ))}
     </ul>

@@ -2,8 +2,15 @@ import React from 'react';
 import {NewUser} from './NewUser';
 import {LoginUser} from './LoginUser'
 import axios from 'axios';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+  
 
-export const FunctionalUserContainer =() =>{
+export const UserContainer =() =>{
 
 const handleRegisterFormSubmit =(newUser)=>{
     axios.post('/api/users/register', newUser,
@@ -36,9 +43,29 @@ const handleLoginFormSubmit =(existingUser)=>{
 }
 
     return (
-        <div>
+        <Router>
+            <div>
+                <nav>
+                    <ul>
+                    <li>
+                        <Link to ='/user/login'>Login</Link>
+                    </li>
+                    <li>
+                        <Link to ='/user/register'>Register New User</Link>
+                    </li>   
+                    </ul>
+                </nav>
+        
+            <Switch>
+                <Route path ='/user/login'>
             <LoginUser onSubmit={handleLoginFormSubmit}/>
+                </Route>
+                <Route path ='/user/register'>
             <NewUser onSubmit={handleRegisterFormSubmit}/>
-        </div>
+                </Route>
+            </Switch>
+            </div>
+        </Router>
+
     )
 }
