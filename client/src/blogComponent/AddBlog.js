@@ -9,8 +9,10 @@ console.log(props)
         categoryId: {
             _id:'600ce7b95da6e4706a14d25d',
             tag:'Pet'
-        }
+        },
+ 
     })
+
 
     const handleChange =(e)=>{
         console.log('e.target:', e.target);
@@ -25,10 +27,7 @@ console.log(props)
         props.submit(blog)
     }
 
-    // useEffect(()=>{
-    //     console.log('blog useEffect')
-    //     setBlog(props.blog)
-    // },[props.blog])
+
 
     return (
         <div>

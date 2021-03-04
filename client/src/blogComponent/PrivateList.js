@@ -7,7 +7,10 @@ import {
 export const PrivateList = (props) => {
   return (
     <div>
+         <Link to ='/blog/add'>
+
         <button type="button">Create</button>
+         </Link>
     <ul>
       {props.blogs.map((el, index) => (
         <li key={index}>

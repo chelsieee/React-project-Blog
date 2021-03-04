@@ -9,11 +9,17 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
+
+const userId = window.localStorage.getItem('userId')
+
 
 export const BlogContainer = () => {
   const [blogList, setBlogList] = useState([]);
+  const [personalBlogList, setPersonalBlogList] = useState([]);
+
   const [editblog, setEditBlog] = useState({
     title: "",
     content: "",
@@ -21,24 +27,22 @@ export const BlogContainer = () => {
   });
   const [categories, setCategories] = useState([]);
 
-  const handleBlogFormSubmit = (blog) => {
-    console.log("created blog:", blog);
-    const newList = [...blogList];
-    newList.push(blog);
-    console.log(newList);
-    setBlogList(newList);
+  let history = useHistory();
 
-    axios
-      .post("api/blogs/new-blog", blog, {
+  const handleBlogFormSubmit = (blog) => {
+     axios
+      .post("http://localhost:3000/api/blogs/new-blog", blog, {
         "Access-Control-Allow-Credentials": true,
       })
       .then((res) => {
         console.log("post response:", res);
+        history.push('/blog/public')
       });
   };
 
   const handleBlogClick = (blog) => {
     setEditBlog(blog);
+    
 
   };
 
@@ -46,7 +50,7 @@ export const BlogContainer = () => {
     console.log("handle edited blog:", blog);
     axios
       .patch(
-        `api/blogs/update/${blog._id}`,
+        `http://localhost:3000/api/blogs/update/${blog._id}`,
         {
           title: blog.title,
           content: blog.content,
@@ -58,7 +62,7 @@ export const BlogContainer = () => {
         console.log("PUT res:", res.data);
         window.alert(res.data);
         axios
-          .get("/api/blogs/all", {
+          .get("http://localhost:3000/api/blogs/all", {
             "Access-Control-Allow-Credentials": true,
           })
           .then((res) => {
@@ -76,19 +80,19 @@ export const BlogContainer = () => {
   const handleDeleteBlog = (blog) => {
     console.log("blog to be deleted:", blog._id);
     axios
-      .delete(`api/blogs/delete/${blog._id}`, blog, {
+      .delete(`http://localhost:3000/api/blogs/delete/${blog._id}`, blog, {
         "Access-Control-Allow-Credentials": true,
       })
       .then((deletedBlog) => {
         console.log(deletedBlog);
         window.alert(deletedBlog.data);
         axios
-          .get("/api/blogs/all", {
+          .get("http://localhost:3000/api/blogs/myblog", {
             "Access-Control-Allow-Credentials": true,
           })
           .then((res) => {
-            console.log("blog Data:", res);
-            setBlogList(res.data);
+            console.log("Personal blog Data:", res);
+            setPersonalBlogList(res.data);
           });
       })
       .catch((err) => {
@@ -100,19 +104,35 @@ export const BlogContainer = () => {
  
 
   useEffect(() => {
-    axios
-      .get("/api/blogs/all", {
-        "Access-Control-Allow-Credentials": true,
-      })
-      .then((res) => {
-        console.log("blog Data:", res);
-        setBlogList(res.data);
-      });
+          axios
+            .get("http://localhost:3000/api/blogs/all", {
+              "Access-Control-Allow-Credentials": true,
+            })
+            .then((res) => {
+              console.log("blog Data:", res);
+              setBlogList(res.data);
+            });
+  }, []);
+
+
+  useEffect(() => {
+      if(userId){
+          axios
+            .get("http://localhost:3000/api/blogs/myblog", {
+              "Access-Control-Allow-Credentials": true,
+            })
+            .then((res) => {
+              console.log("blog Data:", res);
+              setPersonalBlogList(res.data);
+            });
+      }else{
+          console.log('not login yet cant check personal blog')
+      }
   }, []);
 
   useEffect(() => {
     axios
-      .get("/api/categories/all", {
+      .get("http://localhost:3000/api/categories/all", {
         "Access-Control-Allow-Credentials": true,
       })
       .then((res) => {
@@ -120,6 +140,8 @@ export const BlogContainer = () => {
         setCategories(res.data);
       });
   }, []);
+
+  
 
   return (
   
@@ -143,14 +165,14 @@ export const BlogContainer = () => {
                 <List blogs={blogList}/>
                 </Route>
                 <Route path ='/blog/private'>
-                    <PrivateList blogs={blogList} handleClick={handleBlogClick} handleDelete={handleDeleteBlog}/>
+                    <PrivateList blogs={personalBlogList} handleClick={handleBlogClick} handleDelete={handleDeleteBlog}/>
                 </Route>
-                <Router path ='/blog/add'>
+                <Route path ='/blog/add'>
                 <AddBlog submit={handleBlogFormSubmit} categories={categories}/>
-                </Router>
-                <Router path='/blog/edit'>
+                </Route>
+                <Route path='/blog/edit'>
                 <EditBlog submit={handleEditBlog} blog={editblog} categories={categories}/>
-                </Router>
+                </Route>
             </Switch>
         </div>
     </Router>

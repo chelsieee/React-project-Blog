@@ -39,6 +39,20 @@ router.get("/bytitle/:title", (req, res) => {
     });
 });
 
+router.get("/myblog", (req, res) => { 
+  console.log(req.session.user.id)
+  BlogModel.find({ authorId: req.session.user.id})
+  .populate("categoryId", "tag")
+  .populate("authorId", "username")
+  .then((data) => {
+          res.send(data);
+        })
+        .catch(() => {
+          res.status(500).send("Unable to query Blogs!");
+        });
+      })
+
+
 router.post("/new-blog", (req, res) => {
   console.log(req.body);
   let blogStructure = {
@@ -80,7 +94,7 @@ router.delete("/delete/:id", (req, res) => {
   console.log(req.session.user);
   BlogModel.findById(id).then((blogRecord)=>{
 
-    console.log('authorId',blogRecord.authorId._id)
+    console.log('authorId',blogRecord.authorId)
     console.log('sessionid', req.session.user.id)
     if(blogRecord && blogRecord.authorId == req.session.user.id){
       BlogModel.findByIdAndDelete(id)
