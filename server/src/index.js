@@ -18,7 +18,7 @@ const app = express();
 
 //middleware
 app.use(express.json());//essential ! a method inbuilt in express to recognize the incoming Request Object as a JSON Object
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(
   session({
     secret: "random secret",
@@ -35,7 +35,7 @@ app.use('/api/categories', categoryRouter)
 
 
 // define the port and Start your server by listening for requests
-const port = 3000;
+const port = 8000;
 
 app.listen(port, () =>
   console.log(`Fruit app listening at http://localhost:${port}`)

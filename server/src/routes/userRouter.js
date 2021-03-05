@@ -18,7 +18,8 @@ router.post('/register', (req, res) =>{
 
     userModel.create(user).then(()=>{
         res.send('user registered successfully')
-    }).catch(()=>{
+    }).catch((err)=>{
+        console.log(err)
         res.status(400).send('unable to create user')
     })
 })
@@ -38,7 +39,7 @@ router.post('/login', (req, res)=>{
             }
         
         }else{
-            res.status(404).send('invalid username!')
+            res.status(404).send('invalid username or password!')
             return;
 
         }
