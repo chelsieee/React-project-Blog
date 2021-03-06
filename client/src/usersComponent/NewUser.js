@@ -79,10 +79,10 @@ const handleSubmit=(e)=>{
                 variant="outlined"
                 required
                 fullWidth
-                id="name"
-                label="name"
-                name="name"
-                autoComplete="name"
+                id="username"
+                label="username"
+                name="username"
+                autoComplete="username"
                 value={userState.username} 
                 onChange={handleChange}
               />

@@ -95,7 +95,7 @@ const handleSubmit=(e)=>{
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="username"
               name="username"
               autoComplete="username"
@@ -112,7 +112,7 @@ const handleSubmit=(e)=>{
               label="Password"
               type="password"
               id="password"
-            //   autoComplete="current-password"
+              autoComplete="current-password"
               value={userState.password}
               onChange={handleChange}
             />
