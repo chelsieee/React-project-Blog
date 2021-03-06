@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-
+import {
+    Link
+  } from "react-router-dom";
+  
 export const NewUser =(props) =>{
     const [userState, SetUserState] =useState({
         username:'',
@@ -24,7 +27,9 @@ export const NewUser =(props) =>{
             <div>
             <input type="text" placeholder="Please enter username" name="username" value={userState.username} onChange={handleChange}></input>
             <input type="password" placeholder="Please enter password" name="password" value={userState.password} onChange={handleChange}></input>
+            <Link to ='/user/login'>
             <button type="submit">Submit</button>
+            </Link>
             </div>
         </form>
 

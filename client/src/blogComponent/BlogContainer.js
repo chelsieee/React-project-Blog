@@ -6,14 +6,12 @@ import { EditBlog } from "./EditBlog";
 import {PrivateList} from "./PrivateList"
 
 import {
-  BrowserRouter as Router,
-  Switch,
   Route,
   Link,
-  useHistory
+ 
 } from "react-router-dom";
 
-const userId = window.localStorage.getItem('userId')
+
 
 
 export const BlogContainer = () => {
@@ -26,8 +24,8 @@ export const BlogContainer = () => {
     categoryId: "",
   });
   const [categories, setCategories] = useState([]);
-
-  let history = useHistory();
+  const [users,setUsers] =useState({isLoggin:false})
+  
 
   const handleBlogFormSubmit = (blog) => {
      axios
@@ -36,7 +34,7 @@ export const BlogContainer = () => {
       })
       .then((res) => {
         console.log("post response:", res);
-        history.push('/blog/public')
+  
       });
   };
 
@@ -116,7 +114,7 @@ export const BlogContainer = () => {
 
 
   useEffect(() => {
-      if(userId){
+      if(users.isLoggin){
           axios
             .get("http://localhost:3000/api/blogs/myblog", {
               "Access-Control-Allow-Credentials": true,
@@ -128,7 +126,7 @@ export const BlogContainer = () => {
       }else{
           console.log('not login yet cant check personal blog')
       }
-  }, []);
+  }, [users.isLoggin]);
 
   useEffect(() => {
     axios
@@ -141,42 +139,50 @@ export const BlogContainer = () => {
       });
   }, []);
 
-  
+useEffect(()=>{
+const loggedInId = window.localStorage.getItem('userId')
+if(loggedInId){
+  setUsers({isLoggin:true})
+  }
+},[])
 
-  return (
-  
-    <Router>
-        <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to ='/blog/public'>Home Page</Link>
-                    </li>
-                    <li>
-                        <Link to='/blog/private'>Personal Page</Link>
-                    </li>
-                    <li>
-                        <Link to ='/blog/add'>Add blog</Link>
-                    </li>
-                </ul>
-            </nav>
-            <Switch>
-                <Route path ='/blog/public'>
-                <List blogs={blogList}/>
-                </Route>
-                <Route path ='/blog/private'>
-                    <PrivateList blogs={personalBlogList} handleClick={handleBlogClick} handleDelete={handleDeleteBlog}/>
-                </Route>
-                <Route path ='/blog/add'>
-                <AddBlog submit={handleBlogFormSubmit} categories={categories}/>
-                </Route>
-                <Route path='/blog/edit'>
-                <EditBlog submit={handleEditBlog} blog={editblog} categories={categories}/>
-                </Route>
-            </Switch>
-        </div>
-    </Router>
-  );
+  // logout the user
+const handleLogout = () => {
+  axios.get('/api/users/logout', { 'Access-Control-Allow-Credentials':true} ).then(
+      (res)=>{
+          window.localStorage.clear();
+          window.alert(res.data)
+          setUsers({isLoggin:false})
+
+      }
+  )
 };
-
-
+  
+return ( 
+    <div>
+         <nav>
+             <ul>
+                 <li>
+                     <Link to ='/blog/public'>Home Page</Link>
+                 </li>
+                 <li>
+                     <Link to='/blog/private'>Personal Page</Link>
+                 </li>
+                 <li>  <button onClick={handleLogout}>logout</button></li>
+             </ul>
+         </nav>
+             <Route path ='/blog/public'>
+             <List blogs={blogList}/>
+             </Route>
+             <Route path ='/blog/private'>
+                 <PrivateList blogs={personalBlogList} handleClick={handleBlogClick} handleDelete={handleDeleteBlog} login={users}/>
+             </Route>
+             <Route path ='/blog/add'>
+             <AddBlog submit={handleBlogFormSubmit} categories={categories}/>
+             </Route>
+             <Route path='/blog/edit'>
+             <EditBlog submit={handleEditBlog} blog={editblog} categories={categories}/>
+             </Route>
+     </div>
+)
+}

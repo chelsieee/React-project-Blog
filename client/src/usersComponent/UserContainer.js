@@ -3,8 +3,6 @@ import {NewUser} from './NewUser';
 import {LoginUser} from './LoginUser'
 import axios from 'axios';
 import {
-    BrowserRouter as Router,
-    Switch,
     Route,
     Link
   } from "react-router-dom";
@@ -48,7 +46,7 @@ const handleLoginFormSubmit =(existingUser)=>{
 const handleLogout = () => {
     axios.get('/api/users/logout', users, { 'Access-Control-Allow-Credentials':true} ).then(
         (res)=>{
-            setUsers({})
+            setUsers({isLoggin:false})
             window.localStorage.clear();
             window.alert(res.data)
 
@@ -60,8 +58,8 @@ const handleLogout = () => {
 useEffect(()=>{
     const loggedInUser =localStorage.getItem('user');
     if(loggedInUser){
-        const foundUser = JSON.parse(loggedInUser)
-        setUsers(foundUser)
+        // const foundUser = JSON.parse(loggedInUser)
+        setUsers({isLoggin:true})
    }
 },[])
 
@@ -77,7 +75,6 @@ useEffect(()=>{
   }
 // if there's no user, show the login/register form:
     return (
-        <Router>
             <div>
                 <nav>
                     <ul>
@@ -90,17 +87,13 @@ useEffect(()=>{
                     {/* <li><button onClick={handleLogout}>logout</button></li> */}
                     </ul>
                 </nav>
-        
-            <Switch>
                 <Route path ='/user/login'>
                     <LoginUser onSubmit={handleLoginFormSubmit} user={users}/>
                 </Route>
                 <Route path ='/user/register'>
             <NewUser onSubmit={handleRegisterFormSubmit}/>
                 </Route>
-            </Switch>
             </div>
-        </Router>
 
     )
 }
