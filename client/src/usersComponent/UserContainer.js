@@ -1,6 +1,6 @@
 import React from 'react';
-import {NewUser} from './NewUser';
-import {LoginUser} from './LoginUser'
+import {LoginUser} from'./LoginUser'
+import{SignUp} from './NewUser'
 import axios from 'axios';
 import {
     Route,
@@ -46,7 +46,8 @@ const handleLoginFormSubmit =(existingUser)=>{
                     <LoginUser onSubmit={handleLoginFormSubmit}/>
                 </Route>
                 <Route path ='/user/register'>
-            <NewUser onSubmit={handleRegisterFormSubmit}/>
+            <SignUp onSubmit={handleRegisterFormSubmit}/>
+
                 </Route>
             </div>
 
