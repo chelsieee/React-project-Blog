@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from  "react"
-
+import {
+  } from "react-router-dom";
 
 export const EditBlog =(props)=>{
 
     const [blog, setBlog]=useState({
         title:'',
         content:'',
-        categoryId:{
-            _id:'',
-            tag:''
-        }
+        categoryId:''
     })
 
     const handleChange =(e)=>{
@@ -28,7 +26,9 @@ export const EditBlog =(props)=>{
     useEffect(()=>{
         console.log('blog useEffect')
         console.log(props.blog)
-        setBlog(props.blog)
+        const blogEdit = {...props.blog}
+        blogEdit.categoryId =props.blog.categoryId._id
+        setBlog(blogEdit)
     },[props.blog])
 
     return (
@@ -43,13 +43,12 @@ export const EditBlog =(props)=>{
            </div>
            <div>
                <label htmlFor="blogType">Blog categories</label>
-               <select name="categoryId" id="categories" onChange={handleChange} value={props.blog.categoryId._id}>
+               <select name="categoryId" id="categories" onChange={handleChange} value={blog.categoryId}>
                {props.categories.map((el, index)=>(<option key ={index} value ={el._id}>{el.tag}</option>))}
                </select>
            </div>
            <div>
-               <button type="submit" id ="updateblog">submit</button>
-               <button type="submit" id ="return-to-home">Home</button>
+               <button type="submit" id ="updateblog">submit</button>             
            </div>
            </form>
        </div>

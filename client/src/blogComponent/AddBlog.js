@@ -51,7 +51,7 @@ console.log(props)
            </div>
            <div>
                <button type="submit" id ="createblog">submit</button>
-               <button type="submit" id ="return-to-home">Home</button>
+
            </div>
            </form>
        </div>

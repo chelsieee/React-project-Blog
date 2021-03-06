@@ -26,7 +26,7 @@ export const LoginUser =(props) =>{
             <h1>Login to your blog</h1>
             <div>
             <label htmlFor="username">Username</label>
-            <input type="text" laceholder="Please enter username" name="username" value={userState.username} onChange={handleChange}></input>
+            <input type="text" placeholder="Please enter username" name="username" value={userState.username} onChange={handleChange}></input>
             <input type="password" placeholder="Please enter password" name="password" value={userState.password} onChange={handleChange}></input>
             <button type="submit">Submit</button>
             <Link to="/user/register">
