@@ -153,16 +153,6 @@ export const BlogContainer = (props) => {
 
   return (
     <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/blog/public">Home Page</Link>
-          </li>
-          <li>
-            <Link to="/blog/private">Personal Page</Link>
-          </li>
-        </ul>
-      </nav>
       <Route path="/blog/public">
         <List blogs={blogList} />
       </Route>
