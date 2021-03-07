@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
+    backgroundImage: `url(https://source.unsplash.com/random)`,
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 export const LoginUser = (props) => {
   const classes = useStyles();
