@@ -149,7 +149,7 @@ const classes = useStyles();
   return(
     <div>
       <Box className={classes.hero}>
-        <Box>Please loggin first !</Box>
+        <Box>Please login first !</Box>
       </Box> 
     </div>
   )
