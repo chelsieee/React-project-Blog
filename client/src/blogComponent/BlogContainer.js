@@ -5,7 +5,7 @@ import { AddBlog } from "./AddBlog";
 import { EditBlog } from "./EditBlog";
 import { PrivateList } from "./PrivateList";
 
-import { Route} from "react-router-dom";
+import { Route } from "react-router-dom";
 
 export const BlogContainer = (props) => {
   const [blogList, setBlogList] = useState([]);
@@ -129,17 +129,16 @@ export const BlogContainer = (props) => {
       });
   }, []);
 
-  useEffect(() =>{
-  axios
-    .get("http://localhost:3000/api/blogs/myblog", {
-      "Access-Control-Allow-Credentials": true,
-    })
-    .then((res) => {
-      console.log("blog Data:", res);
-      setPersonalBlogList(res.data);
-    });
-
-    },[]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/blogs/myblog", {
+        "Access-Control-Allow-Credentials": true,
+      })
+      .then((res) => {
+        console.log("blog Data:", res);
+        setPersonalBlogList(res.data);
+      });
+  }, []);
 
   useEffect(() => {
     axios
