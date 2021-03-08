@@ -154,10 +154,10 @@ export const BlogContainer = (props) => {
 
   return (
     <div>
-      <Route path="/blog/public">
+      <Route exact path="/">
         <List blogs={blogList} />
       </Route>
-      <Route path="/blog/private">
+      <Route path="/private">
         <PrivateList
           blogs={personalBlogList}
           handleClick={handleBlogClick}

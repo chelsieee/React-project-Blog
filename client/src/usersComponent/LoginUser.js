@@ -17,8 +17,11 @@ const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Chelsie's Website
+      <Link
+        color="inherit"
+        href="https://github.com/chelsieee?tab=repositories"
+      >
+        Chelsie's GitHub
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         : theme.palette.grey[900],
     backgroundSize: "cover",
     backgroundPosition: "center",
-    },
+  },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
@@ -57,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}))
+}));
 
 export const LoginUser = (props) => {
   const classes = useStyles();
