@@ -12,6 +12,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Avatar from '@material-ui/core/Avatar';
+
 import {
     Link
   } from "react-router-dom";
@@ -20,7 +22,7 @@ import {
   const useStyles = makeStyles((theme) => ({
     hero: {
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.44)), url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1450&q=80')`,
-      height: "325px",
+      height: "330px",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
@@ -40,7 +42,7 @@ import {
     },
     blogTitle: {
       fontWeight: 800,
-      padding: theme.spacing(3)
+      padding: theme.spacing(2)
     },
     card: {
       maxWidth: "100%",
@@ -57,11 +59,15 @@ import {
     },
     cardActions: {
       display: "flex",
-      margin: "0 10px",
-      justifyContent: "space-between"
+      margin: "0 10px 10px 10px",
+      justifyContent: "space-between",
+      
     },
     button: {
       margin: "0 0 20px 30px"
+    },
+    author: {
+      display: "flex"
     },
   
   }));  
@@ -98,7 +104,7 @@ const classes = useStyles();
                 </CardActionArea>
                 <CardActions className={classes.cardActions}>
                   <Box className={classes.author}>
-            
+                  <Avatar className={classes.purple}>{el.authorId.username.substring(0, 1).toUpperCase()}</Avatar>
                     <Box ml={2}>
                       <Typography variant="subtitle2" component="p">
                        Category: {el.categoryId.tag}
