@@ -19,7 +19,6 @@ router.get("/all", (req, res) => {
 
 router.get("/byid/:id", (req, res) => {
   BlogModel.findById(req.params.id)
-    .populate("categoryId", "tag")
     .populate("authorId", "username")
     .then((blog) => {
       res.send(blog);
@@ -63,7 +62,7 @@ router.post("/new-blog", (req, res) => {
   };
   BlogModel.create(blogStructure)
     .then((data) => {
-      res.send(data);
+      res.send('new blog created');
     })
     .catch((err) => {
       console.log(err);
