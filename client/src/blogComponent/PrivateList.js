@@ -20,7 +20,7 @@ import {
   const useStyles = makeStyles((theme) => ({
     hero: {
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.44)), url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1450&q=80')`,
-      height: "350px",
+      height: "325px",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
@@ -61,7 +61,7 @@ import {
       justifyContent: "space-between"
     },
     button: {
-      margin: theme.spacing(1),
+      margin: "0 0 20px 30px"
     },
   
   }));  
@@ -109,7 +109,7 @@ const classes = useStyles();
                     </Box>
                   </Box>
                 </CardActions>
-                <box>
+                <Box>
                 <Button
                   variant="contained"
                   color="secondary"
@@ -119,10 +119,7 @@ const classes = useStyles();
                 >
                   Delete
                 </Button>
-                </box>
-                <box>
                   <Link to ='/blog/edit'>
-
                 <Button
                   variant="contained"
                   color="primary"
@@ -134,7 +131,7 @@ const classes = useStyles();
                   Edit
                 </Button>
                   </Link>
-                </box>
+                </Box>
               </Card>
             </Grid>
           ))}
