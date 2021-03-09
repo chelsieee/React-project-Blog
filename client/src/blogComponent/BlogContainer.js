@@ -4,7 +4,7 @@ import { List } from "./List";
 import { AddBlog } from "./AddBlog";
 import { EditBlog } from "./EditBlog";
 import { PrivateList } from "./PrivateList";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Route } from "react-router-dom";
 
 export const BlogContainer = (props) => {

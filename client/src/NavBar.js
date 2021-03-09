@@ -77,7 +77,7 @@ export const NavBar = (props) => {
         </Menu>
         <Typography variant="h6" className={classes.title}>
           Welcome home{" "}
-          <Link exact to="/private">
+          <Link to="/private">
             {JSON.parse(localStorage.getItem("userName"))}
           </Link>
         </Typography>
