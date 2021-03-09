@@ -89,7 +89,7 @@ export const NavBar = (props) => {
         <Link to="/user/login">
           {!props.users.isLoggin && <Button variant="contained">Login</Button>}
         </Link>
-        <Link to="/user/login">
+        <Link to="/blog/add">
           {props.users.isLoggin && <Button color="inherit">Create Blog</Button>}
         </Link>
       </Toolbar>
