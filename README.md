@@ -6,4 +6,4 @@ Wireframes:https://github.com/chelsieee/React-project-Blog/blob/master/Untitled%
 
 Include sign up/log in functionality with encrypted passwords & an authorization flow. Keep this simple, we still want you focusing on the logic of the app.
 
-semantically clean HTML using Material-ui
+semantically clean HTML using Material-UI
