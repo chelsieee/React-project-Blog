@@ -2,9 +2,11 @@ import React from "react";
 import { LoginUser } from "./LoginUser";
 import { SignUp } from "./NewUser";
 import axios from "axios";
-import { Route } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 
 export const UserContainer = (props) => {
+  const history =useHistory()
+
   const handleRegisterFormSubmit = (newUser) => {
     axios
       .post("/api/users/register", newUser, {
@@ -33,6 +35,7 @@ export const UserContainer = (props) => {
           "userName",
           JSON.stringify(user.data.username)
         );
+        history.replace('/private')
       })
       .catch((err) => {
         console.log(err);
