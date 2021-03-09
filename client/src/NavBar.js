@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 export const NavBar = (props) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
-
   const classes = useStyles();
 
   const handleLogout = () => {
@@ -46,54 +45,54 @@ export const NavBar = (props) => {
     setAnchorEl(null);
   };
 
-  return (<AppBar position="static">
-    <Toolbar>
-      <Button
-        color="inherit"
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        Menu
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>
-          <Link to="/">Home</Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Link to="/private">Personal Blog Hub</Link>
-        </MenuItem>
-        {!props.users.isLoggin && (
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <Button
+          color="inherit"
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          Menu
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
           <MenuItem onClick={handleClose}>
-            <Link to="/user/register">Register New User</Link>
+            <Link to="/">Home</Link>
           </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link to="/private">Personal Blog Hub</Link>
+          </MenuItem>
+          {!props.users.isLoggin && (
+            <MenuItem onClick={handleClose}>
+              <Link to="/user/register">Register New User</Link>
+            </MenuItem>
+          )}
+        </Menu>
+        <Typography variant="h6" className={classes.title}>
+          Welcome home{" "}
+          <Link exact to="/private">
+            {JSON.parse(localStorage.getItem("userName"))}
+          </Link>
+        </Typography>
+        {props.users.isLoggin && (
+          <Button color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
         )}
-      </Menu>
-      <Typography variant="h6" className={classes.title}>
-        Welcome home {JSON.parse(localStorage.getItem("userName"))}
-      </Typography>
-      {props.users.isLoggin && (
-        <Button color="inherit" onClick={handleLogout}>
-          Logout
-        </Button>
-      )}
-      {!props.users.isLoggin && (
-        <Button variant="contained">
-          <Link to="/user/login">Login</Link>
-        </Button>
-      )}
-      {props.users.isLoggin && (
-        <Button color="inherit">
-          <Link to="/blog/add">Create Blog</Link>
-        </Button>
-      )}
-    </Toolbar>
-  </AppBar>
-  )
+        <Link to="/user/login">
+          {!props.users.isLoggin && <Button variant="contained">Login</Button>}
+        </Link>
+        <Link to="/user/login">
+          {props.users.isLoggin && <Button color="inherit">Create Blog</Button>}
+        </Link>
+      </Toolbar>
+    </AppBar>
+  );
 };

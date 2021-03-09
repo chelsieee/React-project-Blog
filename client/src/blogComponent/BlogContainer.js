@@ -4,12 +4,13 @@ import { List } from "./List";
 import { AddBlog } from "./AddBlog";
 import { EditBlog } from "./EditBlog";
 import { PrivateList } from "./PrivateList";
-
+import { Link, useHistory } from "react-router-dom";
 import { Route } from "react-router-dom";
 
 export const BlogContainer = (props) => {
   const [blogList, setBlogList] = useState([]);
   const [personalBlogList, setPersonalBlogList] = useState([]);
+  const history = useHistory();
 
   const [editblog, setEditBlog] = useState({
     title: "",
@@ -18,14 +19,15 @@ export const BlogContainer = (props) => {
   });
   const [categories, setCategories] = useState([]);
 
-  const handleBlogFormSubmit = (blog) => {
+  const handleNewBlogFormSubmit = (blog) => {
+
     axios
       .post("http://localhost:3000/api/blogs/new-blog", blog, {
         "Access-Control-Allow-Credentials": true,
       })
       .then((res) => {
         console.log("post response:", res);
-        window.alert(res.data);
+        history.replace("/private");
         axios
           .get("http://localhost:3000/api/blogs/all", {
             "Access-Control-Allow-Credentials": true,
@@ -63,7 +65,7 @@ export const BlogContainer = (props) => {
       )
       .then((res) => {
         console.log("PUT res:", res.data);
-        window.alert(res.data);
+        history.replace('/private')
         axios
           .get("http://localhost:3000/api/blogs/all", {
             "Access-Control-Allow-Credentials": true,
@@ -165,7 +167,7 @@ export const BlogContainer = (props) => {
         />
       </Route>
       <Route path="/blog/add">
-        <AddBlog submit={handleBlogFormSubmit} categories={categories} />
+        <AddBlog submit={handleNewBlogFormSubmit} categories={categories} />
       </Route>
       <Route path="/blog/edit">
         <EditBlog
