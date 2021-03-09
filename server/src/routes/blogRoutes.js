@@ -89,12 +89,9 @@ router.patch("/update/:id", (req, res) => {
 
 router.delete("/delete/:id", (req, res) => {
   let id = req.params.id;
-  console.log(id)
-  console.log(req.session.user);
+
   BlogModel.findById(id).then((blogRecord)=>{
 
-    console.log('authorId',blogRecord.authorId)
-    console.log('sessionid', req.session.user.id)
     if(blogRecord && blogRecord.authorId == req.session.user.id){
       BlogModel.findByIdAndDelete(id)
         .then(() => {
