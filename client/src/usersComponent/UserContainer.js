@@ -2,7 +2,7 @@ import React from "react";
 import { LoginUser } from "./LoginUser";
 import { SignUp } from "./NewUser";
 import axios from "axios";
-import { Route, useHistory } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";     
 
 export const UserContainer = (props) => {
   const history =useHistory()
@@ -13,8 +13,8 @@ export const UserContainer = (props) => {
         "Access-Control-Allow-Credentials": true,
       })
       .then((res) => {
-        let status = res.data;
-        window.alert(status);
+        history.replace('/')
+       
       })
       .catch((err) => {
         console.log(err);
